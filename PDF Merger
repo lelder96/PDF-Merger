@@ -1,0 +1,22 @@
+#create file on Desktop called "PDFs_To_Merge"
+#replace "YourName" with computer username
+
+import os
+from PyPDF2 import PdfMerger
+pdfs = os.listdir(r'C:\Users\YourName\Desktop\PDFs_To_Merge')
+merger = PdfMerger(strict = False)
+
+final_filename = ' '
+
+for file in pdfs:
+	if file.endswith(".pdf"):
+		final_filename += file.split('.')[-2]
+		path_with_file = os.path.join(r'C:\Users\YourName\Desktop\PDFs_To_Merge', file)
+		input = open(path_with_file, 'rb')
+		print(path_with_file)
+		print(input.seek(0, os.SEEK_END))
+		merger.append(input, import_outline = False)
+
+print(final_filename)
+
+merger.write(os.path.join('C:\\Users\\YourName\\Desktop\\PDFs_To_Merge', f'{final_filename}.pdf'))
